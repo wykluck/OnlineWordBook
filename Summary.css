@@ -1,0 +1,40 @@
+
+body {
+	background-color:999966;
+	width: 600px;
+	height: 300px;
+}
+
+footer {
+	margin: 10px;
+}
+
+#Summary_tree_div{
+	width: 600px;
+	height: 250px;
+	overflow: auto;
+}
+.jstree-default a { 
+    white-space:normal !important; height: auto; 
+}
+.jstree-anchor {
+    height: auto !important;
+}
+.jstree-default li > ins { 
+    vertical-align:top; 
+}
+.jstree-leaf {
+    height: auto;
+}
+.jstree-leaf a{
+    height: auto !important;
+}
+
+.vakata-context {padding:1px !important;width:200px}
+.vakata-context li a {font-size:11px;height:20px !important;line-height:20px !important;outline:0 !important;white-space:normal !important;padding-right:0 !important}
+.vakata-context li > a > i {height:20px !important;line-height:20px !important;margin-left:-22px !important;width:22px !important;float:left}
+.vakata-context li a span {height:20px !important;line-height:20px !important;float:left}
+.vakata-context .vakata-context-separator a, .vakata-context .vakata-context-separator a:hover {margin-left:22px !important}
+.vakata-context .lW {float:left;width:92%}
+.vakata-context .lW span.hotkey {font-size:11px;color:#818181;font-weight:bold;float:right;display:block;width:auto;border:0;background-color:inherit}
+.vakata-context span.sc {text-decoration:underline;font-weight:normal;color:inherit;float:none;display:inline;margin:0;padding:0;background-color:inherit;border:0}

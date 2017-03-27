@@ -1,0 +1,27 @@
+body {
+	background-color:999966;
+}
+#word_text{
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	color: red;
+	display:inline-block;
+}
+#pronunciation_symbol{
+	display: inline-block;
+	font-size: 16px;
+}
+#pronounce_button{
+	display:inline-block;
+	background-color: Transparent;
+}
+.option_items{
+	font-size: 12px;
+	font-weight: bold;
+	height: 130px;
+	overflow: auto;
+}
+footer {
+	margin: 10px;
+}

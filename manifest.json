@@ -1,0 +1,63 @@
+{
+  "name" : "OnlineWordbook",
+  "version" : "0.0.1",
+  "description" : "A great assistant to learn or translate English words, build your own wordbook as you browse the web.",
+  "author" : "Yakun Wang",
+  "background" : { "scripts": ["libs/jquery/jquery-1.12.0.min.js", "libs/pouchdb/pouchdb-6.0.7.js", "libs/jquery-ui/jquery-ui.min.js", "background.js"],  "persistent": true },
+  "permissions" : [
+    "pageCapture",
+    "downloads",
+    "storage",
+    "identity",
+    "identity.email",
+    "contextMenus",
+    "tabs",
+    "http://*/*",
+    "https://*/*",
+    "file://*/*"
+   ],
+  "minimum_chrome_version" : "6.0.0.0",
+  "icons" : {
+    "16" : "images/wordbook_16.png",
+    "48" : "images/wordbook_48.png",
+    "128" : "images/wordbook_128.png"
+  },
+  "browser_action": {
+          "default_popup": "Summary.html",       // optional
+          "default_title": "Open your own wordbook"
+        },
+  "commands": {
+          "translate-text": {
+            "suggested_key": {
+              "default": "Alt+T",
+              "windows": "Alt+T",
+              "mac": "Command+T"
+            },
+            "description": "Quick translate English using google translate"
+          },
+          "learn-text": {
+            "suggested_key": {
+              "default": "Alt+L",
+              "windows": "Alt+L",
+              "mac": "Command+L"
+            },
+            "description": "Interactively learn Englisth using Merriam-Webster"
+          }
+  },
+  "content_scripts": [ {
+     "js": ["libs/jquery/jquery-1.12.0.min.js", "libs/jquery-ui/jquery-ui.min.js", "utils.js", "libs/pouchdb/pouchdb-6.0.7.js", "content.js"],
+     "css": ["content.css", "libs/jquery-ui/jquery-ui.min.css"],
+     "matches": [ "http://*/*", "https://*/*", "file://*/*"]
+  }],
+  "web_accessible_resources": ["libs/jquery/jquery-1.12.0.min.js", "DefinitionOptions.html", "DefinitionOptions.js"],
+  "options_ui": {
+    // Required.
+    "page": "options.html",
+    // Recommended.
+    "chrome_style": true
+    // Not recommended; only provided for backwards compatibility,
+    // and will be unsupported in a future version of Chrome (TBD).
+    //"open_in_tab": true
+  },
+  "manifest_version": 2
+}
