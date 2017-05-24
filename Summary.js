@@ -10,8 +10,8 @@ var wordPronunciationMap = {};
 
 $(document).ready(function() {
 	resetSummaryItems();
-    document.getElementById("save_button")
-          .addEventListener("click", saveItems, false);
+    //document.getElementById("save_button")
+    //      .addEventListener("click", saveItems, false);
     document.getElementById("sync_button")
           .addEventListener("click", syncWithRemote, false);
     document.getElementById("export_button")
@@ -127,7 +127,8 @@ function setSummaryItems(items)
 		'contextmenu':{         
 		    "items": function($node) {  
 		        var contextMenuItems = {
-		            "Edit": {
+		            //disable edit and remove context menu
+		            /*"Edit": {
 		                "label":  '<div class="lW"><span class="sc">E</span>dit<span class="hotkey">e</span></div>',
 		                "shortcut": 69, //key "E"
 		                "shortcut_label": "e",
@@ -176,12 +177,12 @@ function setSummaryItems(items)
 		        			//delete the node
                             tree.delete_node($node);
                         }
-		            },
+		            },*/
 		            "Pronounce": {
 		            	"label":  '<div class="lW"><span class="sc">P</span>ronunce<span class="hotkey">p</span></div>',
 		            	"shortcut": 80, //key "P"
 		            	"shortcut_label": "p",
-		            	"_disabled": !wordPronunciationMap.hasOwnProperty($node.text),
+		            	"_disabled": !wordPronunciationMap.hasOwnProperty($node.id),
 		                "action": function () {
 			            	switch ($node.original.type)
 			        		{
@@ -201,11 +202,12 @@ function setSummaryItems(items)
 		        {
 		        case treeNodeType.word:
 		        		//allow remove for word
-		        		delete contextMenuItems.Edit;
+		        		//delete contextMenuItems.Edit;
+
 		        		break;
 		        case treeNodeType.definition:
 		        		//allow edit for definition
-		        		delete contextMenuItems.Edit;
+		        		//delete contextMenuItems.Edit;
 		        		delete contextMenuItems.Pronounce;
 		        		break;
 		        case treeNodeType.example:
