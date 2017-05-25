@@ -75,12 +75,12 @@ var dbStorage = (function() {
              //make sure the remote db is created using a server admin credential
              if (currentUserEmail_.length > 0)
              {
-                var remoteDb = new PouchDB(remoteDbUrl_, {
-                  auth: {
-                    username: 'dbcreator',
-                    password: 'secret'
-                  }
-                });
+                var remoteDb = new PouchDB(remoteDbUrl_//, 
+                  //{auth: {
+                  //  username: 'dbcreator',
+                  //  password: 'secret'
+                  //}}
+                );
              }
           }  
       });
@@ -137,7 +137,7 @@ function createPopupWindow(url, winObj)
             left: tranWindowLeft,
             top: tranWindowTop,
             width: 600,
-            height: 300
+            height: 400
           }, 
           function(window) {
             winObj.id = window.id;
@@ -162,7 +162,11 @@ function translate(selectedText)
         if (window != null)
         {
             //find the translate window, update it with the new url
-            chrome.tabs.update(window.tabs[0].id, {url: translateUrl});
+            chrome.tabs.update(window.tabs[0].id, 
+              {url: translateUrl},
+              function() {
+                chrome.windows.update(window.id, {focused: true});
+              });   
         }
         else
         {

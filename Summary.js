@@ -188,7 +188,7 @@ function setSummaryItems(items)
 			        		{
 			        			 case treeNodeType.word:
 			        			 	//play the pronunciation from the wordPronunciationMap
-			        				var audio = new Audio(wordPronunciationMap[$node.text]);
+			        				var audio = new Audio(wordPronunciationMap[$node.id]);
 									audio.play(); 
 									break;
 			        			 default:
