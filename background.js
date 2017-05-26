@@ -161,12 +161,12 @@ function translate(selectedText)
       function(window) {
         if (window != null)
         {
-            //find the translate window, update it with the new url
-            chrome.tabs.update(window.tabs[0].id, 
-              {url: translateUrl},
-              function() {
-                chrome.windows.update(window.id, {focused: true});
-              });   
+            //can't just update the existing window and url, it does not work well
+            //so just close the existing one and create a new one
+            chrome.windows.remove(window.id,  function() 
+                {
+                  createPopupWindow(translateUrl, tranWinObj);
+                });
         }
         else
         {

@@ -387,7 +387,7 @@ function syncWithRemote()
 {
 	if (dbStorage.getLoginDetail().length == 0)
 	{
-		alert("Please sign into chrome with a google account to activate sync functionality to remote central database");
+		alert("Please sign into chrome with a google account to activate sync functionality to remote central database.");
 		return;
 	}
 	internalSyncWithRemote(dbStorage.getRemoteDBUrl());
@@ -412,6 +412,7 @@ function internalSyncWithRemote(remoteDBUrl)
 	  // handle complete
 	  console.log("sync complete." + info);
 	  resolveDocumentConflicts(remoteDBUrl);
+	  alert("Synchronization with remote central database has completed successfully!")
 	}).on('error', function (err) {
 	  console.log(err);
 	});	
