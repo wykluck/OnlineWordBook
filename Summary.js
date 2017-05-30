@@ -78,7 +78,7 @@ function setSummaryTitle(wordCount)
 	if (dbStorage.getLoginDetail().length > 0)
 		loginStr = 'Account: ' + dbStorage.getLoginDetail() + '; '
 
-	chrome.browserAction.setTitle({'title': loginStr + ' wordbook: ' + curWordCount + ' words.'});
+	chrome.browserAction.setTitle({'title': loginStr + ' Wordbook: ' + curWordCount + ' words.'});
 }
 
 function resetSummaryItems()
@@ -412,7 +412,7 @@ function internalSyncWithRemote(remoteDBUrl)
 	  // handle complete
 	  console.log("sync complete." + info);
 	  resolveDocumentConflicts(remoteDBUrl);
-	  alert("Synchronization with remote central database has completed successfully!")
+	  $('#working_status').text("Synchronization with remote central database has completed successfully!");
 	}).on('error', function (err) {
 	  console.log(err);
 	});	

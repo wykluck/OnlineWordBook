@@ -7,9 +7,17 @@ body {
 
 button {
 	float:right;
-	border-radius: 50%;
+	border-radius: 5px;
 	margin: 5px;
 	border: 1px solid
+}
+
+hr.separator_line{
+	border-top: 1px solid #8c8b8b;
+}
+
+footer {
+	margin: 3px;
 }
 
 #Summary_tree_div{

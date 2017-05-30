@@ -23,5 +23,11 @@ body {
 	overflow: auto;
 }
 footer {
-	margin: 10px;
+	position: absolute; 
+	bottom: 0;
+}
+button {
+	border-radius: 5px;
+	margin: 5px;
+	border: 1px solid
 }
