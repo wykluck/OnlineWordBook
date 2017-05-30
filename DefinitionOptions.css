@@ -16,15 +16,19 @@ body {
 	display:inline-block;
 	background-color: Transparent;
 }
+hr.separator_line{
+	border-top: 1px solid #8c8b8b;
+}
 .option_items{
 	font-size: 12px;
 	font-weight: bold;
-	height: 130px;
+	height: 230px;
 	overflow: auto;
 }
 footer {
 	position: absolute; 
 	bottom: 0;
+	text-align:center
 }
 button {
 	border-radius: 5px;

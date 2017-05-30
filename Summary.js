@@ -16,8 +16,8 @@ $(document).ready(function() {
           .addEventListener("click", syncWithRemote, false);
     document.getElementById("export_button")
           .addEventListener("click", exportToHtml, false);  
-    document.getElementById("refresh_button")
-          .addEventListener("click", resetSummaryItems, false);   
+    //document.getElementById("refresh_button")
+    //      .addEventListener("click", resetSummaryItems, false);   
 });
 
 
@@ -259,7 +259,7 @@ function setSummaryItems(items)
 			else
 				return true;	
 		},
-		"plugins" : ["search", "sort", 'contextmenu'] }).jstree();
+		"plugins" : ["search", "sort", 'contextmenu'] });
 
 	setSummaryTitle(treeInfo.wordCount);
 	return;
@@ -360,14 +360,14 @@ function resolveDocumentConflicts(remoteDBUrl)
 				   	_rev: doc._rev,
 				   	data: mergedData
 			    }).catch(function(err){
-			    	console.log(err);
+			    	$('#working_status').text("Merging documents failed to due to " + err);
 			    });
 			}) 
 			.then(function(){
 				//remove the conflict revision
 				dbStorage.getLocalDB().remove(manifest.name, doc._conflicts[0]).catch(function(err)
 				{
-					console.log(err);
+					$('#working_status').text("Removing document conflicts failed to due to " + err);
 				});
 			})
 			.then(function(){
@@ -378,7 +378,7 @@ function resolveDocumentConflicts(remoteDBUrl)
 			});		
 	  	}
 	}).catch(function (err) {
-	  	// handle any errors
+	  	$('#working_status').text("Resolving documents failed to due to " + err);
 	});
 
 }
@@ -394,6 +394,7 @@ function syncWithRemote()
 }
 function internalSyncWithRemote(remoteDBUrl)
 {
+	$('#working_status').text("Connecting to remote central database ...");
 	var sync = dbStorage.getLocalDB().sync(remoteDBUrl, {
 	  live: false,
 	  retry: true
@@ -410,11 +411,11 @@ function internalSyncWithRemote(remoteDBUrl)
 	  console.log(err);
 	}).on('complete', function (info) {
 	  // handle complete
-	  console.log("sync complete." + info);
+	  $('#working_status').text("Resolving changes between local and remote database.");
 	  resolveDocumentConflicts(remoteDBUrl);
 	  $('#working_status').text("Synchronization with remote central database has completed successfully!");
 	}).on('error', function (err) {
-	  console.log(err);
+	  $('#working_status').text("Synchronization failded due to " + err);
 	});	
 }
 
@@ -425,11 +426,13 @@ var saveHTML = function(fileName, htmlElement){
     link.href = "data:text/plain,"+htmlElement;
 
     link.click(); // trigger click/download
+    $('#working_status').text("Export has completed successfully!");
 };
 
 
 function exportToHtml() 
 {
+	$('#working_status').text("Exporting workbook summary to an html file ...");
 	dbStorage.getLocalDB().get(manifest.name).then(function(doc) {
 		var wordlist = $('<ul class="word_list"></ul>');
 		var items = doc.data;
@@ -463,7 +466,7 @@ function exportToHtml()
 		saveHTML('summary_wordbook.htm', wordlist.html());
 		
 	}).catch(function (err) {
-  		console.log(err);
+  		$('#working_status').text("Export failed due to " + err);
 	});
 		
 }
