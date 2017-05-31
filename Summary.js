@@ -133,7 +133,7 @@ function setSummaryItems(items)
 		                "shortcut": 69, //key "E"
 		                "shortcut_label": "e",
 		                "action":  function () {
-                            tree.edit($node, $node.text, function(node, status, cancelled){
+                            tree.jstree().edit($node, $node.text, function(node, status, cancelled){
                             	//track the edit change   
 	                            if (status && !cancelled)
 	                            {
@@ -144,7 +144,7 @@ function setSummaryItems(items)
 		                        }
                             });
                         }
-		            },                         
+		            }, */                        
 		            "Remove": {
 		                "label":  '<div class="lW"><span class="sc">R</span>emove<span class="hotkey">r</span></div>',
 		                "shortcut": 82, //key "R"
@@ -155,19 +155,19 @@ function setSummaryItems(items)
                             switch ($node.original.type)
 		        			{
 		        			 case treeNodeType.word:
-		        			 	removalObj[treeNodeType.word] = $node.text;
+		        			 	removalObj[treeNodeType.word] = $node.id;
 		        			 	modifiedItems.removed.push(removalObj);
 		        			 	//update the wordcount
 		        			 	curWordCount--;
 		        			 	break;
 		        			 case treeNodeType.definition:
-		        			 	removalObj[treeNodeType.word] = tree.get_node($node.parent).text;
+		        			 	removalObj[treeNodeType.word] = tree.jstree().get_node($node.parent).id;
 		        			 	removalObj[treeNodeType.definition] = $node.id;
 		        			 	modifiedItems.removed.push(removalObj);
 		        			 	break;
 		        			 case treeNodeType.example:
-		        			 	removalObj[treeNodeType.word] = tree.get_node($node.parent).parent;
-		        			 	removalObj[treeNodeType.definition] = tree.get_node($node.parent).id;
+		        			 	removalObj[treeNodeType.word] = tree.jstree().get_node($node.parent).parent;
+		        			 	removalObj[treeNodeType.definition] = tree.jstree().get_node($node.parent).id;
 		        			 	removalObj[treeNodeType.example] = $node.text;
 		        			 	modifiedItems.removed.push(removalObj);
 		        			 	break;
@@ -175,9 +175,11 @@ function setSummaryItems(items)
 		        			  	break;
 		        			}
 		        			//delete the node
-                            tree.delete_node($node);
+                            tree.jstree().delete_node($node);
+                            //here directly save items to localDb
+                            saveItems();
                         }
-		            },*/
+		            },
 		            "Pronounce": {
 		            	"label":  '<div class="lW"><span class="sc">P</span>ronunce<span class="hotkey">p</span></div>',
 		            	"shortcut": 80, //key "P"
@@ -213,6 +215,7 @@ function setSummaryItems(items)
 		        case treeNodeType.example:
 		        		//allow both edit and remove for example
 		        		delete contextMenuItems.Pronounce;
+		        		delete contextMenuItems.Remove;
 		        		break;
 		        default:
 		        		break;
@@ -225,7 +228,7 @@ function setSummaryItems(items)
 				if ($node.original.type == treeNodeType.definition || $node.original.type == treeNodeType.example)
 				{
 					//for definition and example, depends on its parent's visibility to decide
-					if (tree.get_node($node.parent).state.visible === true)
+					if (tree.jstree().get_node($node.parent).state.visible === true)
 					{
 						$node.state.visible = true;
 					}
@@ -321,15 +324,15 @@ function saveItems() {
 		//clear the modified items and save change to chrome storage
 		modifiedItems.removed.length = 0;
 		modifiedItems.modified.length = 0;
-        dbStroage.getLocalDB().put({
+        dbStorage.getLocalDB().put({
         	_id: manifest.name, 
         	_rev: doc._rev,
         	data: items
         }).catch(function (err) {
-  			console.log(err);
+  			$('#working_status').text("SaveItems failed due to " + err);
 		});
   	}).catch(function (err) {
-  		console.log(err);
+  		$('#working_status').text("SaveItems failed due to " + err);
 	});
 }
 
@@ -408,7 +411,7 @@ function internalSyncWithRemote(remoteDBUrl)
 	  // replicate resumed (e.g. new changes replicating, user went back online)
 	}).on('denied', function (err) {
 	  // a document failed to replicate (e.g. due to permissions)
-	  console.log(err);
+	  $('#working_status').text("Synchronization failded due to " + err);
 	}).on('complete', function (info) {
 	  // handle complete
 	  $('#working_status').text("Resolving changes between local and remote database.");
