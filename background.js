@@ -32,7 +32,7 @@ var dbStorage = (function() {
    function getDbName(email) {
       var dbName = manifestName;
       if (email != null && email.length > 0)
-        dbName = manifestName + '_' + email.replace('@', '_at_').replace('.','_dot_');
+        dbName = manifestName + '_' + email.replaceAll("@", "_at_").replaceAll(".", "_dot_");
       dbName = dbName.toLowerCase();
       return dbName;
    };

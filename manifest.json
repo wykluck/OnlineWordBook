@@ -3,7 +3,15 @@
   "version" : "0.0.1",
   "description" : "A great assistant to learn or translate English words, build your own wordbook as you browse the web.",
   "author" : "Yakun Wang",
-  "background" : { "scripts": ["libs/jquery/jquery-1.12.0.min.js", "libs/pouchdb/pouchdb-6.0.7.js", "libs/jquery-ui/jquery-ui.min.js", "background.js"],  "persistent": true },
+  "background" : { 
+    "scripts": [
+      "libs/jquery/jquery-1.12.0.min.js", 
+      "libs/pouchdb/pouchdb-6.0.7.js",
+      "libs/jquery-ui/jquery-ui.min.js",
+      "utils.js",
+      "background.js"],  
+      "persistent": true 
+  },
   "permissions" : [
     "pageCapture",
     "downloads",
