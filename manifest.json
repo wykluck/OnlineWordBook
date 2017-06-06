@@ -31,7 +31,7 @@
     "128" : "images/wordbook_128.png"
   },
   "browser_action": {
-          "default_popup": "Summary.html",       // optional
+          "default_popup": "Summary.html",     
           "default_title": "Open your own wordbook"
         },
   "commands": {
@@ -59,13 +59,8 @@
   }],
   "web_accessible_resources": ["libs/jquery/jquery-1.12.0.min.js", "DefinitionOptions.html", "DefinitionOptions.js"],
   "options_ui": {
-    // Required.
     "page": "options.html",
-    // Recommended.
     "chrome_style": true
-    // Not recommended; only provided for backwards compatibility,
-    // and will be unsupported in a future version of Chrome (TBD).
-    //"open_in_tab": true
   },
   "manifest_version": 2
 }
