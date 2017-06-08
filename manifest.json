@@ -1,6 +1,6 @@
 {
   "name" : "OnlineWordbook",
-  "version" : "0.0.1",
+  "version" : "0.0.3",
   "description" : "A great assistant to learn or translate English words, build your own wordbook as you browse the web.",
   "author" : "Yakun Wang",
   "background" : { 
