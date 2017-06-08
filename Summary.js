@@ -393,7 +393,34 @@ function syncWithRemote()
 		alert("Please sign into chrome with a google account to activate sync functionality to remote central database.");
 		return;
 	}
-	internalSyncWithRemote(dbStorage.getRemoteDBUrl());
+	//here check remote database exists or not
+	if (dbStorage.getRemoteDBUrl() != null && dbStorage.getRemoteDBUrl().length > 0)
+	{
+	    var remoteDb = new PouchDB(dbStorage.getRemoteDBUrl(), {skip_setup: true});
+	    remoteDb.info()
+	      .then(function() {
+	      	//database exists, start syncing..
+	      	internalSyncWithRemote(dbStorage.getRemoteDBUrl());
+	      })
+	      .catch(function (err) {
+	      	//database does not exist, request it to be created.
+	      	var requestDB = new PouchDB(dbStorage.getRequestCreationDBUrl(), {skip_setup: true});
+		    requestDB.get(manifest.name).then(function(doc) {
+		          //append the (database, UTCtime) pair for request the new database against the user name
+
+		          doc[dbStorage.getRemoteDBUrl()] = {
+		          			'requestTime': new Date().toUTCString(), 
+		          			'isCreated': false
+		          		};
+		          requestDB.put(doc);
+		          alert("Your remote central database is not created yet. It may take 24 hours to be created.");
+	        }).then(function(response) {
+	        }).catch(function (err) {
+	        });
+	        
+	      });
+	}
+	
 }
 function internalSyncWithRemote(remoteDBUrl)
 {

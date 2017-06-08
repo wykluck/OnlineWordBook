@@ -27,7 +27,7 @@ var dbStorage = (function() {
    var currentUserEmail_ = "";
    var dbName_ = "";
    var remoteDbUrl_ = "";
-   
+   var requestDBUrl_ = "https://onlinewordbook.smileupps.com/dbcreation_request_db";
 
    function getDbName(email) {
       var dbName = manifestName;
@@ -72,16 +72,6 @@ var dbStorage = (function() {
              dbName_ = getDbName(currentUserEmail_);
              remoteDbUrl_ = "https://onlinewordbook.smileupps.com/" + dbName_;
              db_ = new PouchDB(dbName_, {storage: "persistent"});
-             //make sure the remote db is created using a server admin credential
-             if (currentUserEmail_.length > 0)
-             {
-                var remoteDb = new PouchDB(remoteDbUrl_//, 
-                  //{auth: {
-                  //  username: 'dbcreator',
-                  //  password: 'secret'
-                  //}}
-                );
-             }
           }  
       });
    }
@@ -111,6 +101,10 @@ var dbStorage = (function() {
 
      getRemoteDBUrl: function() {
         return remoteDbUrl_;
+     },
+
+     getRequestCreationDBUrl: function() {
+        return requestDBUrl_;
      }
   }
 }());
